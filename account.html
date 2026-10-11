@@ -491,13 +491,24 @@
         }
 
         const { data, error } = await client.auth.signUp({
-          email,
-          password,
-          options: {
-            data: { full_name: fullName }
-          }
-        });
 
+  email,
+
+  password,
+
+  options: {
+
+    emailRedirectTo:"https://sellflowmarketplace.github.io/SellFlowMarketplace/account.html",
+
+    data: {
+
+      full_name: name
+
+    }
+
+  }
+
+});
         if (error) throw error;
 
         if (data.session) {
