@@ -490,25 +490,19 @@
           throw new Error("Please enter your full name.");
         }
 
-        const { data, error } = await client.auth.signUp({
-
+        
+const { data, error } = await client.auth.signUp({
   email,
-
   password,
-
   options: {
-
-    emailRedirectTo:"https://sellflowmarketplace.github.io/SellFlowMarketplace/account.html",
-
+    emailRedirectTo:
+      "https://sellflowmarketplace.github.io/SellFlowMarketplace/account.html",
     data: {
-
-      full_name: name
-
+      full_name: fullName
     }
-
   }
-
 });
+
         if (error) throw error;
 
         if (data.session) {
