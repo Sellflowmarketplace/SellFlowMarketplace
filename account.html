@@ -3,794 +3,1260 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#103c2b">
-  <title>My Account | SellFlow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10231c">
+  <title>My Account | SellFlow Marketplace</title>
+  <meta name="description" content="Sign in, manage your SellFlow account and track your orders.">
+
   <style>
     :root {
-      --green: #145c3d;
-      --dark: #103c2b;
-      --accent: #27c47c;
-      --bg: #f6faf7;
-      --text: #18352a;
-      --muted: #718078;
-      --border: #e0e9e3;
+      --dark: #10231c;
+      --dark-light: #19372b;
+      --green: #20bd73;
+      --green-bright: #35d58b;
+      --bg: #f5f8f6;
+      --white: #ffffff;
+      --text: #17251e;
+      --muted: #728078;
+      --border: #e2eae5;
+      --danger: #c0392b;
+      --success-bg: #e9f9f0;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
       background: var(--bg);
       color: var(--text);
-      font-family: Inter, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", Arial, sans-serif;
+      min-height: 100vh;
     }
 
-    button, input { font: inherit; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    header {
+    button, input {
+      font: inherit;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .topbar {
       background: var(--dark);
-      color: white;
-      padding: 18px 22px;
-    }
-
-    .nav {
-      max-width: 1050px;
-      margin: auto;
+      color: var(--white);
+      padding: 18px 6%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
     .brand {
-      color: white;
-      font-size: 23px;
-      font-weight: 850;
-      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
     }
 
-    .brand span { color: #59e3a0; }
-
-    .nav a:last-child {
-      color: #e0f5e8;
-      font-size: 13px;
-      text-decoration: none;
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      background: var(--green);
+      color: var(--dark);
+      display: grid;
+      place-items: center;
+      font-size: 21px;
+      font-weight: 900;
     }
 
-    main {
-      width: min(100% - 32px, 960px);
-      margin: 38px auto 65px;
+    .brand span:last-child {
+      color: var(--green-bright);
     }
 
-    .intro { margin-bottom: 25px; }
-
-    .intro h1 {
-      font-size: clamp(28px, 5vw, 39px);
-      letter-spacing: -1px;
-      margin: 0 0 8px;
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
     }
 
-    .intro p {
+    .nav-actions a:hover {
+      color: var(--green-bright);
+    }
+
+    .page {
+      width: min(1100px, 92%);
+      margin: 44px auto 70px;
+    }
+
+    .eyebrow {
+      color: #138c51;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      letter-spacing: -1.3px;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .intro {
       color: var(--muted);
-      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 570px;
     }
 
-    .panel {
+    .auth-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+      margin-top: 32px;
+    }
+
+    .welcome-panel {
+      background: var(--dark);
+      color: white;
+      padding: 38px;
+      border-radius: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 420px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .welcome-panel::after {
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      border: 40px solid rgba(53, 213, 139, 0.1);
+      border-radius: 50%;
+      right: -95px;
+      bottom: -85px;
+      pointer-events: none;
+    }
+
+    .welcome-panel h2 {
+      font-size: 29px;
+      line-height: 1.25;
+      letter-spacing: -0.7px;
+      margin-bottom: 14px;
+      max-width: 330px;
+    }
+
+    .welcome-panel p {
+      color: #c3d3c9;
+      line-height: 1.8;
+      font-size: 14px;
+      max-width: 350px;
+    }
+
+    .benefits {
+      list-style: none;
+      display: grid;
+      gap: 17px;
+      margin-top: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .benefits li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #e5f2e9;
+      font-size: 14px;
+    }
+
+    .check {
+      width: 25px;
+      height: 25px;
+      flex: 0 0 25px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: rgba(53, 213, 139, 0.15);
+      color: var(--green-bright);
+      font-weight: 900;
+    }
+
+    .auth-card, .dashboard-card {
       background: white;
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: clamp(20px, 5vw, 30px);
-      box-shadow: 0 10px 35px rgba(16,60,43,.045);
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: 0 10px 35px rgba(16, 35, 28, 0.035);
+      min-width: 0;
     }
 
-    .auth-panel { max-width: 480px; }
+    .auth-card h2, .section-heading {
+      font-size: 23px;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .subheading {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
 
     .tabs {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      background: #f0f5f1;
       padding: 5px;
+      border-radius: 12px;
       gap: 5px;
-      background: #eff5f0;
-      border-radius: 11px;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .tab {
-      padding: 11px;
       border: 0;
-      border-radius: 8px;
       background: transparent;
-      color: var(--muted);
-      font-weight: 750;
+      color: #647269;
+      padding: 11px 8px;
+      border-radius: 9px;
       cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .tab.active {
       background: white;
-      color: var(--green);
-      box-shadow: 0 2px 7px #18352a0d;
+      color: var(--dark);
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.06);
     }
 
-    label {
+    .field {
+      margin-bottom: 17px;
+    }
+
+    .field label {
       display: block;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 750;
-      margin: 15px 0 7px;
+      margin-bottom: 8px;
     }
 
-    input {
+    .field input {
       width: 100%;
-      padding: 13px;
-      border: 1px solid #d8e4dc;
+      min-height: 47px;
+      border: 1px solid #dce5df;
       border-radius: 10px;
-      background: white;
+      padding: 12px 13px;
+      outline: none;
       color: var(--text);
-      outline-color: var(--accent);
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    .primary, .secondary {
-      padding: 12px 16px;
-      border-radius: 10px;
+    .field input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(32, 189, 115, 0.11);
+    }
+
+    .field input::placeholder {
+      color: #a0aaa3;
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 2px 0 20px;
+      flex-wrap: wrap;
+    }
+
+    .text-link {
+      color: #10884c;
+      font-size: 12px;
+      font-weight: 750;
+      cursor: pointer;
+      background: none;
       border: 0;
+    }
+
+    .primary-btn {
+      width: 100%;
+      min-height: 49px;
+      border: 0;
+      border-radius: 11px;
+      background: var(--green);
+      color: #09291a;
       font-weight: 800;
       cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
     }
 
-    .primary {
-      background: var(--green);
-      color: white;
+    .primary-btn:hover {
+      background: var(--green-bright);
+      transform: translateY(-1px);
     }
 
-    .primary:hover { background: #0d4930; }
-
-    .secondary {
-      background: #eaf5ed;
-      color: var(--green);
+    .primary-btn:disabled {
+      opacity: 0.65;
+      cursor: wait;
+      transform: none;
     }
-
-    .full { width: 100%; margin-top: 20px; }
 
     .message {
+      display: none;
+      padding: 13px 14px;
+      border-radius: 10px;
       font-size: 13px;
-      margin-top: 15px;
+      line-height: 1.6;
+      margin-bottom: 18px;
       overflow-wrap: anywhere;
     }
 
-    .error { color: #b42318; }
-    .success { color: #137344; }
-
-    .hidden { display: none !important; }
-
-    .dashboard-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
+    .message.show {
+      display: block;
     }
 
-    .dashboard-top h2 { margin: 0 0 5px; }
-    .muted { color: var(--muted); font-size: 13px; }
+    .message.error {
+      color: var(--danger);
+      background: #fff0ee;
+      border: 1px solid #f6d3cf;
+    }
+
+    .message.success {
+      color: #12683c;
+      background: var(--success-bg);
+      border: 1px solid #cdeed9;
+    }
+
+    .secure-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 18px;
+      line-height: 1.7;
+    }
+
+    .dashboard-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 27px;
+    }
+
+    .dashboard-header p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-top: 6px;
+    }
+
+    .outline-btn {
+      border: 1px solid var(--border);
+      background: white;
+      padding: 11px 15px;
+      border-radius: 10px;
+      font-weight: 750;
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .outline-btn:hover {
+      border-color: var(--green);
+    }
 
     .stats {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 13px;
+      gap: 16px;
       margin-bottom: 24px;
     }
 
     .stat {
       background: white;
       border: 1px solid var(--border);
-      border-radius: 13px;
-      padding: 17px;
-      min-width: 0;
+      border-radius: 16px;
+      padding: 22px;
     }
 
     .stat-label {
-      color: var(--muted);
       font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
     }
 
     .stat-value {
-      display: block;
-      margin-top: 5px;
-      font-size: clamp(21px, 4vw, 29px);
+      font-size: 28px;
+      letter-spacing: -0.8px;
       font-weight: 850;
       overflow-wrap: anywhere;
     }
 
-    .order-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .order-card {
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      padding: 18px;
-      background: white;
-      min-width: 0;
-    }
-
-    .order-head {
+    .section-top {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: start;
-      gap: 12px;
+      gap: 15px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
     }
 
-    .order-ref {
-      font-weight: 800;
-      overflow-wrap: anywhere;
+    .table-wrap {
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      color: var(--muted);
+      background: #f7faf8;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      white-space: nowrap;
+    }
+
+    th, td {
+      padding: 15px 13px;
+      border-bottom: 1px solid #edf1ee;
+    }
+
+    td {
+      color: #35443a;
     }
 
     .status {
       display: inline-block;
-      padding: 5px 10px;
-      border-radius: 30px;
-      background: #fff4d9;
-      color: #875c00;
+      padding: 6px 9px;
+      border-radius: 20px;
       font-size: 11px;
-      font-weight: 850;
-      text-transform: capitalize;
+      font-weight: 800;
+      background: #eef2ef;
+      color: #526057;
+      white-space: nowrap;
     }
 
-    .status.completed {
-      background: #e0f6e8;
-      color: #176b3d;
+    .status.paid, .status.completed, .status.delivered {
+      background: #e5f8ed;
+      color: #147443;
     }
 
-    .status.cancelled {
-      background: #fde8e7;
-      color: #a52b27;
+    .status.pending, .status.processing {
+      background: #fff4d9;
+      color: #8b6300;
     }
 
-    .status.confirmed {
-      background: #e5efff;
-      color: #2859a5;
+    .empty-state {
+      text-align: center;
+      padding: 42px 18px;
     }
 
-    .order-items {
-      margin: 15px 0;
-      padding: 13px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+    .empty-icon {
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 15px;
+      display: grid;
+      place-items: center;
+      background: #e9f9f0;
+      border-radius: 17px;
+      color: #14864e;
+      font-size: 25px;
+    }
+
+    .empty-state h3 {
+      font-size: 17px;
+      margin-bottom: 9px;
+    }
+
+    .empty-state p {
+      color: var(--muted);
       font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 19px;
     }
 
-    .order-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 5px 0;
+    .shop-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--green);
+      color: var(--dark);
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 800;
     }
 
-    .order-total {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-weight: 850;
-    }
-
-    .empty {
+    .footer {
       text-align: center;
-      padding: 30px 15px;
-      border: 1px dashed #cddbd1;
-      border-radius: 13px;
-      color: var(--muted);
-    }
-
-    .empty strong {
-      display: block;
-      color: var(--text);
-      margin-bottom: 5px;
-    }
-
-    footer {
-      padding: 25px;
-      text-align: center;
-      color: var(--muted);
+      padding: 25px 15px;
       font-size: 12px;
+      color: var(--muted);
     }
 
-    @media (max-width: 560px) {
-      .stats { grid-template-columns: 1fr; }
-      .stat { padding: 14px; }
-      .dashboard-top .secondary { width: 100%; }
+    .footer a {
+      color: #168a50;
+      font-weight: 700;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        margin-top: 30px;
+      }
+
+      .auth-layout {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .welcome-panel {
+        min-height: auto;
+        padding: 27px;
+      }
+
+      .welcome-panel h2 {
+        font-size: 25px;
+      }
+
+      .benefits {
+        gap: 12px;
+        margin-top: 23px;
+      }
+
+      .auth-card, .dashboard-card {
+        padding: 23px 18px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+        gap: 11px;
+      }
+
+      .stat {
+        padding: 17px;
+      }
+
+      .stat-value {
+        font-size: 24px;
+      }
+
+      .topbar {
+        padding: 14px 4%;
+      }
+
+      .brand {
+        font-size: 19px;
+      }
+
+      .nav-actions {
+        gap: 12px;
+        font-size: 12px;
+      }
     }
   </style>
 </head>
 
 <body>
-<header>
-  <nav class="nav">
-    <a class="brand" href="index.html">Sell<span>Flow</span></a>
-    <a href="index.html">← Back to marketplace</a>
-  </nav>
-</header>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="SellFlow Marketplace home">
+      <span class="brand-icon">S</span>
+      <span>SellFlow<span> Marketplace</span></span>
+    </a>
 
-<main>
-  <section id="authSection">
-    <div class="intro">
-      <h1>Your SellFlow account</h1>
-      <p>Create an account or sign in to view and track your orders.</p>
-    </div>
+    <nav class="nav-actions" aria-label="Main navigation">
+      <a href="index.html">Marketplace ↗</a>
+      <a href="#account">My Account</a>
+    </nav>
+  </header>
 
-    <div class="panel auth-panel">
-      <div class="tabs">
-        <button class="tab active" id="signinTab" type="button">
-          Sign in
-        </button>
-        <button class="tab" id="signupTab" type="button">
-          Create account
-        </button>
+  <main class="page">
+    <section id="authSection">
+      <p class="eyebrow">Your SellFlow account</p>
+      <h1>Good business starts here.</h1>
+      <p class="intro">
+        Sign in to manage your account, view your orders and keep track of
+        your purchases in one place.
+      </p>
+
+      <div class="auth-layout" id="account">
+        <aside class="welcome-panel">
+          <div>
+            <p class="eyebrow" style="color: var(--green-bright);">
+              Welcome to SellFlow
+            </p>
+            <h2>Your digital services, all in one place.</h2>
+            <p>
+              A simpler way to access digital services and keep up with your
+              orders.
+            </p>
+          </div>
+
+          <ul class="benefits">
+            <li><span class="check">✓</span> One account for your orders</li>
+            <li><span class="check">✓</span> View your order history</li>
+            <li><span class="check">✓</span> Track available order statuses</li>
+            <li><span class="check">✓</span> Access your account securely</li>
+          </ul>
+        </aside>
+
+        <section class="auth-card">
+          <h2 id="formTitle">Welcome back</h2>
+          <p class="subheading" id="formSubtitle">
+            Sign in to continue to your SellFlow account.
+          </p>
+
+          <div class="message" id="authMessage" role="status" aria-live="polite"></div>
+
+          <div class="tabs" role="tablist" aria-label="Account options">
+            <button class="tab active" id="signInTab" type="button"
+              role="tab" aria-selected="true">Sign in</button>
+            <button class="tab" id="signUpTab" type="button"
+              role="tab" aria-selected="false">Create account</button>
+          </div>
+
+          <form id="authForm">
+            <div class="field" id="nameField" hidden>
+              <label for="fullName">Full name</label>
+              <input id="fullName" name="fullName" type="text"
+                autocomplete="name" placeholder="Enter your full name">
+            </div>
+
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email"
+                autocomplete="email" placeholder="you@example.com"
+                required>
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password"
+                autocomplete="current-password" minlength="6"
+                placeholder="Enter your password" required>
+            </div>
+
+            <div class="form-row" id="signInExtras">
+              <span style="font-size: 12px; color: var(--muted);">
+                Secure account access
+              </span>
+              <button class="text-link" id="forgotPassword"
+                type="button">Forgot password?</button>
+            </div>
+
+            <button class="primary-btn" id="submitButton" type="submit">
+              Sign in to your account
+            </button>
+          </form>
+
+          <p class="secure-note">
+            Your account is protected by Supabase authentication.
+            Never share your password with anyone.
+          </p>
+        </section>
       </div>
+    </section>
 
-      <form id="authForm">
-        <div id="nameField" class="hidden">
-          <label for="fullName">Full name</label>
-          <input id="fullName" autocomplete="name"
-            minlength="2" maxlength="120">
-        </div>
-
-        <label for="email">Email address</label>
-        <input id="email" type="email" autocomplete="email" required>
-
-        <label for="password">Password</label>
-        <input id="password" type="password"
-          autocomplete="current-password" minlength="8" required>
-
-        <button class="primary full" id="authButton" type="submit">
-          Sign in
-        </button>
-      </form>
-
-      <button class="secondary full" id="resetButton" type="button">
-        Forgot password?
-      </button>
-
-      <p id="authMessage" class="message" role="status"
-        aria-live="polite"></p>
-    </div>
-  </section>
-
-  <section id="dashboardSection" class="hidden">
-    <div class="intro">
-      <h1>My dashboard</h1>
-      <p>Your orders, references, and order status in one place.</p>
-    </div>
-
-    <div class="dashboard-top">
-      <div>
-        <h2 id="welcomeName">Welcome back!</h2>
-        <div id="accountEmail" class="muted"></div>
-      </div>
-      <button class="secondary" id="signoutButton" type="button">
-        Sign out
-      </button>
-    </div>
-
-    <div class="stats">
-      <div class="stat">
-        <span class="stat-label">Total orders</span>
-        <strong class="stat-value" id="totalOrders">0</strong>
-      </div>
-      <div class="stat">
-        <span class="stat-label">Pending orders</span>
-        <strong class="stat-value" id="pendingOrders">0</strong>
-      </div>
-      <div class="stat">
-        <span class="stat-label">Completed orders</span>
-        <strong class="stat-value" id="completedOrders">0</strong>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="dashboard-top">
+    <section id="dashboardSection" hidden>
+      <div class="dashboard-header">
         <div>
-          <h2>My order history</h2>
-          <p class="muted">Keep your order reference for support.</p>
+          <p class="eyebrow">Customer dashboard</p>
+          <h1 id="welcomeTitle">Welcome back!</h1>
+          <p id="welcomeEmail"></p>
         </div>
-        <button class="secondary" id="refreshButton" type="button">
-          Refresh orders
+        <button class="outline-btn" id="signOutButton" type="button">
+          Sign out ↗
         </button>
       </div>
 
-      <div id="ordersList" class="order-list">
-        <div class="empty">Loading your orders...</div>
+      <div class="stats">
+        <div class="stat">
+          <p class="stat-label">Total orders</p>
+          <p class="stat-value" id="totalOrders">—</p>
+        </div>
+        <div class="stat">
+          <p class="stat-label">Pending orders</p>
+          <p class="stat-value" id="pendingOrders">—</p>
+        </div>
+        <div class="stat">
+          <p class="stat-label">Completed orders</p>
+          <p class="stat-value" id="completedOrders">—</p>
+        </div>
       </div>
 
-      <p id="ordersMessage" class="message" role="status"></p>
-    </div>
+      <section class="dashboard-card">
+        <div class="section-top">
+          <div>
+            <h2 class="section-heading">Your orders</h2>
+            <p class="subheading" style="margin-bottom: 0;">
+              View the orders linked to your account.
+            </p>
+          </div>
+          <button class="outline-btn" id="refreshOrders" type="button">
+            Refresh orders ↻
+          </button>
+        </div>
 
-    <p class="muted">
-      Order status is updated by SellFlow. An order marked confirmed does
-      not by itself prove that payment has been received.
-    </p>
-  </section>
-</main>
+        <div class="message" id="ordersMessage" role="status" aria-live="polite"></div>
 
-<footer>© 2026 SellFlow. Digital services, made simpler.</footer>
+        <div id="ordersLoading" class="empty-state">
+          <p>Loading your orders…</p>
+        </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  "use strict";
+        <div id="ordersTableWrap" class="table-wrap" hidden>
+          <table>
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody"></tbody>
+          </table>
+        </div>
 
-  const SUPABASE_URL =
-    "https://wmqzpqgxacsvljaawrle.supabase.co";
+        <div id="emptyOrders" class="empty-state" hidden>
+          <div class="empty-icon">↗</div>
+          <h3>No orders yet</h3>
+          <p>
+            When you place an order using this account, it will appear here.
+          </p>
+          <a class="shop-btn" href="index.html">Explore marketplace ↗</a>
+        </div>
+      </section>
+    </section>
+  </main>
 
-  const SUPABASE_KEY =
-    "sb_publishable_tCr23SY30etatIZuWdbSXA_bllnusS6";
+  <footer class="footer">
+    © <span id="currentYear"></span> SellFlow Marketplace.
+    <a href="index.html">Return to marketplace</a>
+  </footer>
 
-  const client = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    "use strict";
 
-  const authSection = document.getElementById("authSection");
-  const dashboardSection = document.getElementById("dashboardSection");
-  const authForm = document.getElementById("authForm");
-  const authMessage = document.getElementById("authMessage");
-  const ordersList = document.getElementById("ordersList");
+    // These are your project's public URL and publishable key.
+    // Never put a Supabase service_role or secret key in this file.
+    const SUPABASE_URL = "https://wmqzpqgxacsvljaawrle.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_tCr23SY30etatIZuWdbSXA_bllnusS6";
 
-  let authMode = "signin";
-  let busy = false;
+    const ACCOUNT_URL =
+      "https://sellflowmarketplace.github.io/SellFlowMarketplace/account.html";
 
-  function setMessage(element, message, kind = "") {
-    element.textContent = message;
-    element.className = "message" + (kind ? " " + kind : "");
-  }
+    const MARKETPLACE_URL =
+      "https://sellflowmarketplace.github.io/SellFlowMarketplace/";
 
-  function setMode(mode) {
-    authMode = mode;
-    const signup = mode === "signup";
+    const authSection = document.getElementById("authSection");
+    const dashboardSection = document.getElementById("dashboardSection");
+    const authForm = document.getElementById("authForm");
+    const authMessage = document.getElementById("authMessage");
+    const ordersMessage = document.getElementById("ordersMessage");
+    const submitButton = document.getElementById("submitButton");
 
-    document.getElementById("signinTab").classList.toggle("active", !signup);
-    document.getElementById("signupTab").classList.toggle("active", signup);
-    document.getElementById("nameField").classList.toggle("hidden", !signup);
-    document.getElementById("fullName").required = signup;
-    document.getElementById("authButton").textContent =
-      signup ? "Create account" : "Sign in";
-    document.getElementById("password").autocomplete =
-      signup ? "new-password" : "current-password";
-    document.getElementById("resetButton").classList.toggle("hidden", signup);
-    setMessage(authMessage, "");
-  }
+    let supabaseClient = null;
+    let isSignUp = false;
+    let currentUser = null;
+    let authBusy = false;
+    let ordersBusy = false;
 
-  document.getElementById("signinTab").addEventListener("click", () => {
-    setMode("signin");
-  });
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
 
-  document.getElementById("signupTab").addEventListener("click", () => {
-    setMode("signup");
-  });
-
-  authForm.addEventListener("submit", async event => {
-    event.preventDefault();
-    if (busy) return;
-
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-    const fullName = document.getElementById("fullName").value.trim();
-
-    busy = true;
-    const button = document.getElementById("authButton");
-    button.disabled = true;
-    button.textContent = "Please wait...";
-    setMessage(authMessage, "");
-
-    try {
-      if (authMode === "signup") {
-        if (fullName.length < 2) {
-          throw new Error("Please enter your full name.");
-        }
-
-        
-const { data, error } = await client.auth.signUp({
-  email,
-  password,
-  options: {
-    emailRedirectTo:
-      "https://sellflowmarketplace.github.io/SellFlowMarketplace/account.html",
-    data: {
-      full_name: fullName
+    function showMessage(element, message, type) {
+      element.textContent = message;
+      element.className = "message show " + type;
     }
-  }
-});
 
-        if (error) throw error;
+    function clearMessage(element) {
+      element.textContent = "";
+      element.className = "message";
+    }
 
-        if (data.session) {
-          await showDashboard(data.session.user);
-        } else {
-          setMessage(
-            authMessage,
-            "Account created. Check your email for the confirmation link, then return here and sign in.",
-            "success"
-          );
-        }
-      } else {
-        const { data, error } = await client.auth.signInWithPassword({
-          email,
-          password
-        });
+    function setAuthMode(signUp) {
+      isSignUp = signUp;
+      clearMessage(authMessage);
 
-        if (error) throw error;
-        await showDashboard(data.user);
-      }
-    } catch (error) {
-      setMessage(
-        authMessage,
-        error.message || "Something went wrong. Please try again.",
-        "error"
+      document.getElementById("signInTab").classList.toggle("active", !signUp);
+      document.getElementById("signUpTab").classList.toggle("active", signUp);
+      document.getElementById("signInTab").setAttribute(
+        "aria-selected", String(!signUp)
       );
-    } finally {
-      busy = false;
-      button.disabled = false;
-      button.textContent =
-        authMode === "signup" ? "Create account" : "Sign in";
-    }
-  });
-
-  document.getElementById("resetButton").addEventListener("click", async () => {
-    const email = document.getElementById("email").value.trim();
-
-    if (!email) {
-      setMessage(authMessage, "Enter your email address first.", "error");
-      return;
-    }
-
-    try {
-      const redirectTo = window.location.href.split("?")[0].split("#")[0];
-
-      const { error } = await client.auth.resetPasswordForEmail(email, {
-        redirectTo
-      });
-
-      if (error) throw error;
-
-      setMessage(
-        authMessage,
-        "If password recovery is enabled, a reset link will be sent to your email.",
-        "success"
+      document.getElementById("signUpTab").setAttribute(
+        "aria-selected", String(signUp)
       );
-    } catch (error) {
-      setMessage(authMessage, error.message, "error");
+
+      document.getElementById("nameField").hidden = !signUp;
+      document.getElementById("fullName").required = signUp;
+      document.getElementById("signInExtras").hidden = signUp;
+
+      document.getElementById("password").autocomplete =
+        signUp ? "new-password" : "current-password";
+
+      document.getElementById("formTitle").textContent =
+        signUp ? "Create your account" : "Welcome back";
+
+      document.getElementById("formSubtitle").textContent =
+        signUp
+          ? "Create your SellFlow account to manage your orders."
+          : "Sign in to continue to your SellFlow account.";
+
+      submitButton.textContent =
+        signUp ? "Create my account" : "Sign in to your account";
     }
-  });
 
-  async function showDashboard(user) {
-    if (!user) return;
+    function setAuthBusy(busy) {
+      authBusy = busy;
+      submitButton.disabled = busy;
+      submitButton.textContent = busy
+        ? "Please wait…"
+        : (isSignUp ? "Create my account" : "Sign in to your account");
+    }
 
-    authSection.classList.add("hidden");
-    dashboardSection.classList.remove("hidden");
+    function formatDate(value) {
+      if (!value) return "—";
 
-    document.getElementById("welcomeName").textContent =
-      "Welcome, " + (
-        user.user_metadata?.full_name ||
-        user.email?.split("@")[0] ||
-        "customer"
-      ) + "!";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "—";
 
-    document.getElementById("accountEmail").textContent =
-      user.email || "";
+      return new Intl.DateTimeFormat("en-NG", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      }).format(date);
+    }
 
-    await loadOrders();
-  }
+    function formatAmount(order) {
+      const amount = order.total_amount ??
+        order.total ??
+        order.amount ??
+        order.total_price;
 
-  function money(amount) {
-    return "₦" + Number(amount || 0).toLocaleString("en-NG", {
-      minimumFractionDigits: Number(amount || 0) % 1 === 0 ? 0 : 2,
-      maximumFractionDigits: 2
-    });
-  }
-
-  function niceDate(value) {
-    const date = new Date(value);
-    return Number.isNaN(date.getTime())
-      ? "Date unavailable"
-      : date.toLocaleString("en-NG", {
-          dateStyle: "medium",
-          timeStyle: "short"
-        });
-  }
-
-  async function loadOrders() {
-    ordersList.replaceChildren();
-
-    const loading = document.createElement("div");
-    loading.className = "empty";
-    loading.textContent = "Loading your orders...";
-    ordersList.appendChild(loading);
-
-    setMessage(document.getElementById("ordersMessage"), "");
-
-    try {
-      const { data: userData, error: userError } =
-        await client.auth.getUser();
-
-      if (userError) throw userError;
-
-      const user = userData.user;
-      if (!user) {
-        await showAuth();
-        return;
+      if (amount === undefined || amount === null || amount === "") {
+        return "—";
       }
 
-      const { data, error } = await client
-        .from("orders")
-        .select(`
-          id,
-          order_reference,
-          status,
-          total_amount,
-          created_at,
-          order_items (
-            quantity,
-            unit_price,
-            products ( name )
-          )
-        `)
-        .eq("customer_id", user.id)
-        .order("created_at", { ascending: false });
+      const number = Number(amount);
+      if (!Number.isFinite(number)) return String(amount);
 
-      if (error) throw error;
+      return new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+        maximumFractionDigits: 2
+      }).format(number);
+    }
 
-      const orders = data || [];
+    function orderStatus(order) {
+      return String(
+        order.status ?? order.order_status ?? order.payment_status ?? "Pending"
+      );
+    }
 
-      document.getElementById("totalOrders").textContent = orders.length;
+    function safeStatusClass(status) {
+      const normalized = status.toLowerCase().trim();
+
+      if (["paid", "completed", "delivered", "success", "successful"]
+        .includes(normalized)) {
+        return "completed";
+      }
+
+      if (["pending", "processing", "awaiting payment", "in progress"]
+        .includes(normalized)) {
+        return normalized === "pending" ? "pending" : "processing";
+      }
+
+      return "";
+    }
+
+    function displayOrderId(order) {
+      const value = order.order_number ?? order.order_id ?? order.id;
+      if (value === undefined || value === null) return "Order";
+      return "#" + String(value).slice(0, 12);
+    }
+
+    function renderOrders(orders) {
+      const body = document.getElementById("ordersTableBody");
+      const tableWrap = document.getElementById("ordersTableWrap");
+      const emptyOrders = document.getElementById("emptyOrders");
+
+      body.replaceChildren();
+
+      const list = Array.isArray(orders) ? orders : [];
+
+      document.getElementById("totalOrders").textContent = String(list.length);
+
+      const pendingCount = list.filter(order => {
+        const status = orderStatus(order).toLowerCase();
+        return ["pending", "processing", "in progress", "awaiting payment"]
+          .includes(status);
+      }).length;
+
+      const completedCount = list.filter(order => {
+        const status = orderStatus(order).toLowerCase();
+        return ["completed", "delivered", "success", "successful"]
+          .includes(status);
+      }).length;
+
       document.getElementById("pendingOrders").textContent =
-        orders.filter(order => order.status === "pending").length;
+        String(pendingCount);
+
       document.getElementById("completedOrders").textContent =
-        orders.filter(order => order.status === "completed").length;
+        String(completedCount);
 
-      ordersList.replaceChildren();
-
-      if (!orders.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty";
-
-        const heading = document.createElement("strong");
-        heading.textContent = "No orders yet";
-
-        const detail = document.createElement("div");
-        detail.textContent =
-          "When you place an order while signed in, it will appear here.";
-
-        const link = document.createElement("a");
-        link.href = "index.html";
-        link.textContent = "Explore the marketplace";
-        link.style.color = "#145c3d";
-        link.style.display = "inline-block";
-        link.style.marginTop = "12px";
-
-        empty.append(heading, detail, link);
-        ordersList.appendChild(empty);
+      if (list.length === 0) {
+        tableWrap.hidden = true;
+        emptyOrders.hidden = false;
         return;
       }
 
-      orders.forEach(order => {
-        const card = document.createElement("article");
-        card.className = "order-card";
+      emptyOrders.hidden = true;
+      tableWrap.hidden = false;
 
-        const head = document.createElement("div");
-        head.className = "order-head";
+      list.forEach(order => {
+        const tr = document.createElement("tr");
 
-        const ref = document.createElement("div");
-        ref.className = "order-ref";
-        ref.textContent = "Order " + order.order_reference;
+        const idCell = document.createElement("td");
+        idCell.textContent = displayOrderId(order);
 
-        const status = document.createElement("span");
-        status.className = "status " + (order.status || "pending");
-        status.textContent = order.status || "pending";
+        const dateCell = document.createElement("td");
+        dateCell.textContent = formatDate(
+          order.created_at ?? order.inserted_at ?? order.date
+        );
 
-        head.append(ref, status);
+        const amountCell = document.createElement("td");
+        amountCell.textContent = formatAmount(order);
 
-        const date = document.createElement("p");
-        date.className = "muted";
-        date.textContent = "Placed " + niceDate(order.created_at);
+        const statusCell = document.createElement("td");
+        const badge = document.createElement("span");
+        const status = orderStatus(order);
 
-        const items = document.createElement("div");
-        items.className = "order-items";
+        badge.className = "status " + safeStatusClass(status);
+        badge.textContent = status;
+        statusCell.appendChild(badge);
 
-        (order.order_items || []).forEach(item => {
-          const row = document.createElement("div");
-          row.className = "order-item";
-
-          const name = document.createElement("span");
-          const productName = Array.isArray(item.products)
-            ? item.products[0]?.name
-            : item.products?.name;
-
-          name.textContent =
-            (productName || "Product") + " × " + item.quantity;
-
-          const price = document.createElement("span");
-          price.textContent = money(
-            Number(item.unit_price) * Number(item.quantity)
-          );
-
-          row.append(name, price);
-          items.appendChild(row);
-        });
-
-        const total = document.createElement("div");
-        total.className = "order-total";
-
-        const totalLabel = document.createElement("span");
-        totalLabel.textContent = "Order total";
-
-        const totalValue = document.createElement("span");
-        totalValue.textContent = money(order.total_amount);
-
-        total.append(totalLabel, totalValue);
-        card.append(head, date, items, total);
-        ordersList.appendChild(card);
+        tr.append(idCell, dateCell, amountCell, statusCell);
+        body.appendChild(tr);
       });
-    } catch (error) {
-      console.error("SellFlow order history:", error);
-      ordersList.replaceChildren();
-
-      const empty = document.createElement("div");
-      empty.className = "empty";
-
-      const heading = document.createElement("strong");
-      heading.textContent = "Couldn't load your orders";
-
-      const detail = document.createElement("div");
-      detail.textContent =
-        "Please refresh the page. If this continues, check your database access policies.";
-
-      empty.append(heading, detail);
-      ordersList.appendChild(empty);
-    }
-  }
-
-  async function showAuth() {
-    dashboardSection.classList.add("hidden");
-    authSection.classList.remove("hidden");
-  }
-
-  document.getElementById("refreshButton").addEventListener("click", loadOrders);
-
-  document.getElementById("signoutButton").addEventListener("click", async () => {
-    const { error } = await client.auth.signOut();
-
-    if (error) {
-      setMessage(document.getElementById("ordersMessage"), error.message, "error");
-      return;
     }
 
-    await showAuth();
-    setMode("signin");
-    authForm.reset();
-  });
+    async function loadOrders() {
+      if (!supabaseClient || !currentUser || ordersBusy) return;
 
-  async function initialize() {
-    const { data, error } = await client.auth.getSession();
+      ordersBusy = true;
+      clearMessage(ordersMessage);
 
-    if (error) {
-      setMessage(authMessage, error.message, "error");
-      return;
+      document.getElementById("ordersLoading").hidden = false;
+      document.getElementById("ordersTableWrap").hidden = true;
+      document.getElementById("emptyOrders").hidden = true;
+
+      try {
+        // Row Level Security must limit this query to the signed-in customer.
+        const { data, error } = await supabaseClient
+          .from("orders")
+          .select("*")
+          .eq("customer_id", currentUser.id)
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        renderOrders(data || []);
+      } catch (error) {
+        console.error("Could not load orders:", error);
+
+        document.getElementById("ordersTableWrap").hidden = true;
+        document.getElementById("emptyOrders").hidden = true;
+
+        showMessage(
+          ordersMessage,
+          "We couldn't load your orders. Check your Supabase orders table, " +
+          "the customer_id field, and your Row Level Security policies, " +
+          "then tap Refresh orders.",
+          "error"
+        );
+      } finally {
+        document.getElementById("ordersLoading").hidden = true;
+        ordersBusy = false;
+      }
     }
 
-    if (data.session?.user) {
-      await showDashboard(data.session.user);
-    }
-  }
+    async function showDashboard(user) {
+      currentUser = user;
+      authSection.hidden = true;
+      dashboardSection.hidden = false;
 
-  client.auth.onAuthStateChange((event, session) => {
-    if (event === "SIGNED_OUT" || !session) {
-      showAuth();
-    }
-  });
+      const metadata = user.user_metadata || {};
+      const name = metadata.full_name || metadata.name ||
+        (user.email ? user.email.split("@")[0] : "Customer");
 
-  initialize();
-</script>
+      document.getElementById("welcomeTitle").textContent =
+        "Welcome, " + name + "!";
+
+      document.getElementById("welcomeEmail").textContent =
+        user.email || "Signed in to your SellFlow account";
+
+      await loadOrders();
+    }
+
+    function showAuth() {
+      currentUser = null;
+      dashboardSection.hidden = true;
+      authSection.hidden = false;
+    }
+
+    async function initialize() {
+      if (!window.supabase || !window.supabase.createClient) {
+        showMessage(
+          authMessage,
+          "SellFlow couldn't load its authentication service. Check your " +
+          "internet connection and reload the page.",
+          "error"
+        );
+        return;
+      }
+
+      supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY,
+        {
+          auth: {
+            autoRefreshToken: true,
+            persistSession: true,
+            detectSessionInUrl: true
+          }
+        }
+      );
+
+      // The client also detects Supabase email-confirmation callbacks.
+      const { data, error } = await supabaseClient.auth.getSession();
+
+      if (error) {
+        showMessage(authMessage, error.message, "error");
+        return;
+      }
+
+      if (data.session && data.session.user) {
+        await showDashboard(data.session.user);
+      } else {
+        showAuth();
+      }
+
+      supabaseClient.auth.onAuthStateChange((event, session) => {
+        // Defer UI work so auth event processing doesn't block Supabase.
+        setTimeout(() => {
+          if (session && session.user) {
+            showDashboard(session.user);
+          } else {
+            showAuth();
+          }
+
+          if (event === "PASSWORD_RECOVERY") {
+            showAuth();
+            showMessage(
+              authMessage,
+              "Your password recovery link is verified. Sign in with your " +
+              "new password after resetting it through the recovery flow.",
+              "success"
+            );
+          }
+        }, 0);
+      });
+    }
+
+    document.getElementById("signInTab").addEventListener("click", () => {
+      setAuthMode(false);
+    });
+
+    document.getElementById("signUpTab").addEventListener("click", () => {
+      setAuthMode(true);
+    });
+
+    authForm.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      if (!supabaseClient || authBusy) return;
+
+      clearMessage(authMessage);
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (isSignUp && !fullName) {
+        showMessage(authMessage, "Please enter your full name.", "error");
+        return;
+      }
+
+      setAuthBusy(true);
+
+      try {
+        if (isSignUp) {
+          const { data, error } = await supabaseClient.auth.signUp({
+            email,
+            password,
+            options: {
+              data: {
+                full_name: fullName
+              },
+              emailRedirectTo: ACCOUNT_URL
+            }
+          });
+
+          if (error) throw error;
+
+          if (data.session && data.user) {
+            await showDashboard(data.user);
+          } else {
+            showMessage(
+              authMessage,
+              "Your account has been created. Check your email for the " +
+              "confirmation link, then return here to sign in.",
+              "success"
+            );
+            authForm.reset();
+            setAuthMode(false);
+          }
+        } else {
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+
+          if (error) throw error;
+
+          if (data.user) {
+            await showDashboard(data.user);
+          }
+        }
+      } catch (error) {
+        console.error("Authentication error:", error);
+
+        let message = error.message || "Something went wrong. Please try again.";
+
+        if (/invalid login credentials/i.test(message)) {
+          message = "Email or password is incorrect. If you just registered, " +
+            "confirm your email first.";
+        } else if (/email not confirmed/i.test(message)) {
+          message = "Please confirm your email using the link sent to your inbox.";
+        } else if (/user already registered/i.test(message)) {
+          message = "An account already exists with this email. Please sign in.";
+        }
+
+        showMessage(authMessage, message, "error");
+      } finally {
+        setAuthBusy(false);
+      }
+    });
+
+    document.getElementById("forgotPassword").addEventListener("click", async () => {
+      if (!supabaseClient) return;
+
+      clearMessage(authMessage);
+
+      const email = document.getElementById("email").value.trim();
+
+      if (!email) {
+        showMessage(
+          authMessage,
+          "Enter your email address above first, then tap Forgot password.",
+          "error"
+        );
+        document.getElementById("email").focus();
+        return;
+      }
+
+      const button = document.getElementById("forgotPassword");
+      button.disabled = true;
+      button.textContent = "Sending…";
+
+      try {
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(
+          email,
+          {
+            redirectTo: ACCOUNT_URL
+          }
+        );
+
+        if (error) throw error;
+
+        showMessage(
+          authMessage,
+          "If an account exists for this address, a password reset link " +
+          "will be sent. Check your inbox and spam folder.",
+          "success"
+        );
+      } catch (error) {
+        showMessage(authMessage, error.message || "Could not send reset email.", "error");
+      } finally {
+        button.disabled = false;
+        button.textContent = "Forgot password?";
+      }
+    });
+
+    document.getElementById("signOutButton").addEventListener("click", async () => {
+      if (!supabaseClient) return;
+
+      const button = document.getElementById("signOutButton");
+      button.disabled = true;
+
+      try {
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) throw error;
+
+        showAuth();
+        clearMessage(authMessage);
+        showMessage(authMessage, "You have signed out successfully.", "success");
+      } catch (error) {
+        showMessage(
+          ordersMessage,
+          error.message || "Could not sign out. Please try again.",
+          "error"
+        );
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    document.getElementById("refreshOrders").addEventListener("click", () => {
+      loadOrders();
+    });
+
+    initialize();
+  </script>
 </body>
 </html>
