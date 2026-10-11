@@ -1,0 +1,791 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#103c2b">
+  <title>My Account | SellFlow</title>
+  <style>
+    :root {
+      --green: #145c3d;
+      --dark: #103c2b;
+      --accent: #27c47c;
+      --bg: #f6faf7;
+      --text: #18352a;
+      --muted: #718078;
+      --border: #e0e9e3;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Arial, sans-serif;
+    }
+
+    button, input { font: inherit; }
+
+    header {
+      background: var(--dark);
+      color: white;
+      padding: 18px 22px;
+    }
+
+    .nav {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand {
+      color: white;
+      font-size: 23px;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .brand span { color: #59e3a0; }
+
+    .nav a:last-child {
+      color: #e0f5e8;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    main {
+      width: min(100% - 32px, 960px);
+      margin: 38px auto 65px;
+    }
+
+    .intro { margin-bottom: 25px; }
+
+    .intro h1 {
+      font-size: clamp(28px, 5vw, 39px);
+      letter-spacing: -1px;
+      margin: 0 0 8px;
+    }
+
+    .intro p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: clamp(20px, 5vw, 30px);
+      box-shadow: 0 10px 35px rgba(16,60,43,.045);
+    }
+
+    .auth-panel { max-width: 480px; }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 5px;
+      gap: 5px;
+      background: #eff5f0;
+      border-radius: 11px;
+      margin-bottom: 22px;
+    }
+
+    .tab {
+      padding: 11px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: white;
+      color: var(--green);
+      box-shadow: 0 2px 7px #18352a0d;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 750;
+      margin: 15px 0 7px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d8e4dc;
+      border-radius: 10px;
+      background: white;
+      color: var(--text);
+      outline-color: var(--accent);
+    }
+
+    .primary, .secondary {
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 0;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: var(--green);
+      color: white;
+    }
+
+    .primary:hover { background: #0d4930; }
+
+    .secondary {
+      background: #eaf5ed;
+      color: var(--green);
+    }
+
+    .full { width: 100%; margin-top: 20px; }
+
+    .message {
+      font-size: 13px;
+      margin-top: 15px;
+      overflow-wrap: anywhere;
+    }
+
+    .error { color: #b42318; }
+    .success { color: #137344; }
+
+    .hidden { display: none !important; }
+
+    .dashboard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .dashboard-top h2 { margin: 0 0 5px; }
+    .muted { color: var(--muted); font-size: 13px; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+      margin-bottom: 24px;
+    }
+
+    .stat {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 17px;
+      min-width: 0;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .stat-value {
+      display: block;
+      margin-top: 5px;
+      font-size: clamp(21px, 4vw, 29px);
+      font-weight: 850;
+      overflow-wrap: anywhere;
+    }
+
+    .order-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .order-card {
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 18px;
+      background: white;
+      min-width: 0;
+    }
+
+    .order-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .order-ref {
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 30px;
+      background: #fff4d9;
+      color: #875c00;
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: capitalize;
+    }
+
+    .status.completed {
+      background: #e0f6e8;
+      color: #176b3d;
+    }
+
+    .status.cancelled {
+      background: #fde8e7;
+      color: #a52b27;
+    }
+
+    .status.confirmed {
+      background: #e5efff;
+      color: #2859a5;
+    }
+
+    .order-items {
+      margin: 15px 0;
+      padding: 13px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 5px 0;
+    }
+
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 850;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px 15px;
+      border: 1px dashed #cddbd1;
+      border-radius: 13px;
+      color: var(--muted);
+    }
+
+    .empty strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    footer {
+      padding: 25px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 560px) {
+      .stats { grid-template-columns: 1fr; }
+      .stat { padding: 14px; }
+      .dashboard-top .secondary { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <nav class="nav">
+    <a class="brand" href="index.html">Sell<span>Flow</span></a>
+    <a href="index.html">← Back to marketplace</a>
+  </nav>
+</header>
+
+<main>
+  <section id="authSection">
+    <div class="intro">
+      <h1>Your SellFlow account</h1>
+      <p>Create an account or sign in to view and track your orders.</p>
+    </div>
+
+    <div class="panel auth-panel">
+      <div class="tabs">
+        <button class="tab active" id="signinTab" type="button">
+          Sign in
+        </button>
+        <button class="tab" id="signupTab" type="button">
+          Create account
+        </button>
+      </div>
+
+      <form id="authForm">
+        <div id="nameField" class="hidden">
+          <label for="fullName">Full name</label>
+          <input id="fullName" autocomplete="name"
+            minlength="2" maxlength="120">
+        </div>
+
+        <label for="email">Email address</label>
+        <input id="email" type="email" autocomplete="email" required>
+
+        <label for="password">Password</label>
+        <input id="password" type="password"
+          autocomplete="current-password" minlength="8" required>
+
+        <button class="primary full" id="authButton" type="submit">
+          Sign in
+        </button>
+      </form>
+
+      <button class="secondary full" id="resetButton" type="button">
+        Forgot password?
+      </button>
+
+      <p id="authMessage" class="message" role="status"
+        aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="dashboardSection" class="hidden">
+    <div class="intro">
+      <h1>My dashboard</h1>
+      <p>Your orders, references, and order status in one place.</p>
+    </div>
+
+    <div class="dashboard-top">
+      <div>
+        <h2 id="welcomeName">Welcome back!</h2>
+        <div id="accountEmail" class="muted"></div>
+      </div>
+      <button class="secondary" id="signoutButton" type="button">
+        Sign out
+      </button>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">Total orders</span>
+        <strong class="stat-value" id="totalOrders">0</strong>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Pending orders</span>
+        <strong class="stat-value" id="pendingOrders">0</strong>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Completed orders</span>
+        <strong class="stat-value" id="completedOrders">0</strong>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="dashboard-top">
+        <div>
+          <h2>My order history</h2>
+          <p class="muted">Keep your order reference for support.</p>
+        </div>
+        <button class="secondary" id="refreshButton" type="button">
+          Refresh orders
+        </button>
+      </div>
+
+      <div id="ordersList" class="order-list">
+        <div class="empty">Loading your orders...</div>
+      </div>
+
+      <p id="ordersMessage" class="message" role="status"></p>
+    </div>
+
+    <p class="muted">
+      Order status is updated by SellFlow. An order marked confirmed does
+      not by itself prove that payment has been received.
+    </p>
+  </section>
+</main>
+
+<footer>© 2026 SellFlow. Digital services, made simpler.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  "use strict";
+
+  const SUPABASE_URL =
+    "https://wmqzpqgxacsvljaawrle.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_tCr23SY30etatIZuWdbSXA_bllnusS6";
+
+  const client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  const authSection = document.getElementById("authSection");
+  const dashboardSection = document.getElementById("dashboardSection");
+  const authForm = document.getElementById("authForm");
+  const authMessage = document.getElementById("authMessage");
+  const ordersList = document.getElementById("ordersList");
+
+  let authMode = "signin";
+  let busy = false;
+
+  function setMessage(element, message, kind = "") {
+    element.textContent = message;
+    element.className = "message" + (kind ? " " + kind : "");
+  }
+
+  function setMode(mode) {
+    authMode = mode;
+    const signup = mode === "signup";
+
+    document.getElementById("signinTab").classList.toggle("active", !signup);
+    document.getElementById("signupTab").classList.toggle("active", signup);
+    document.getElementById("nameField").classList.toggle("hidden", !signup);
+    document.getElementById("fullName").required = signup;
+    document.getElementById("authButton").textContent =
+      signup ? "Create account" : "Sign in";
+    document.getElementById("password").autocomplete =
+      signup ? "new-password" : "current-password";
+    document.getElementById("resetButton").classList.toggle("hidden", signup);
+    setMessage(authMessage, "");
+  }
+
+  document.getElementById("signinTab").addEventListener("click", () => {
+    setMode("signin");
+  });
+
+  document.getElementById("signupTab").addEventListener("click", () => {
+    setMode("signup");
+  });
+
+  authForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    if (busy) return;
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const fullName = document.getElementById("fullName").value.trim();
+
+    busy = true;
+    const button = document.getElementById("authButton");
+    button.disabled = true;
+    button.textContent = "Please wait...";
+    setMessage(authMessage, "");
+
+    try {
+      if (authMode === "signup") {
+        if (fullName.length < 2) {
+          throw new Error("Please enter your full name.");
+        }
+
+        const { data, error } = await client.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { full_name: fullName }
+          }
+        });
+
+        if (error) throw error;
+
+        if (data.session) {
+          await showDashboard(data.session.user);
+        } else {
+          setMessage(
+            authMessage,
+            "Account created. Check your email for the confirmation link, then return here and sign in.",
+            "success"
+          );
+        }
+      } else {
+        const { data, error } = await client.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) throw error;
+        await showDashboard(data.user);
+      }
+    } catch (error) {
+      setMessage(
+        authMessage,
+        error.message || "Something went wrong. Please try again.",
+        "error"
+      );
+    } finally {
+      busy = false;
+      button.disabled = false;
+      button.textContent =
+        authMode === "signup" ? "Create account" : "Sign in";
+    }
+  });
+
+  document.getElementById("resetButton").addEventListener("click", async () => {
+    const email = document.getElementById("email").value.trim();
+
+    if (!email) {
+      setMessage(authMessage, "Enter your email address first.", "error");
+      return;
+    }
+
+    try {
+      const redirectTo = window.location.href.split("?")[0].split("#")[0];
+
+      const { error } = await client.auth.resetPasswordForEmail(email, {
+        redirectTo
+      });
+
+      if (error) throw error;
+
+      setMessage(
+        authMessage,
+        "If password recovery is enabled, a reset link will be sent to your email.",
+        "success"
+      );
+    } catch (error) {
+      setMessage(authMessage, error.message, "error");
+    }
+  });
+
+  async function showDashboard(user) {
+    if (!user) return;
+
+    authSection.classList.add("hidden");
+    dashboardSection.classList.remove("hidden");
+
+    document.getElementById("welcomeName").textContent =
+      "Welcome, " + (
+        user.user_metadata?.full_name ||
+        user.email?.split("@")[0] ||
+        "customer"
+      ) + "!";
+
+    document.getElementById("accountEmail").textContent =
+      user.email || "";
+
+    await loadOrders();
+  }
+
+  function money(amount) {
+    return "₦" + Number(amount || 0).toLocaleString("en-NG", {
+      minimumFractionDigits: Number(amount || 0) % 1 === 0 ? 0 : 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function niceDate(value) {
+    const date = new Date(value);
+    return Number.isNaN(date.getTime())
+      ? "Date unavailable"
+      : date.toLocaleString("en-NG", {
+          dateStyle: "medium",
+          timeStyle: "short"
+        });
+  }
+
+  async function loadOrders() {
+    ordersList.replaceChildren();
+
+    const loading = document.createElement("div");
+    loading.className = "empty";
+    loading.textContent = "Loading your orders...";
+    ordersList.appendChild(loading);
+
+    setMessage(document.getElementById("ordersMessage"), "");
+
+    try {
+      const { data: userData, error: userError } =
+        await client.auth.getUser();
+
+      if (userError) throw userError;
+
+      const user = userData.user;
+      if (!user) {
+        await showAuth();
+        return;
+      }
+
+      const { data, error } = await client
+        .from("orders")
+        .select(`
+          id,
+          order_reference,
+          status,
+          total_amount,
+          created_at,
+          order_items (
+            quantity,
+            unit_price,
+            products ( name )
+          )
+        `)
+        .eq("customer_id", user.id)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+
+      const orders = data || [];
+
+      document.getElementById("totalOrders").textContent = orders.length;
+      document.getElementById("pendingOrders").textContent =
+        orders.filter(order => order.status === "pending").length;
+      document.getElementById("completedOrders").textContent =
+        orders.filter(order => order.status === "completed").length;
+
+      ordersList.replaceChildren();
+
+      if (!orders.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+
+        const heading = document.createElement("strong");
+        heading.textContent = "No orders yet";
+
+        const detail = document.createElement("div");
+        detail.textContent =
+          "When you place an order while signed in, it will appear here.";
+
+        const link = document.createElement("a");
+        link.href = "index.html";
+        link.textContent = "Explore the marketplace";
+        link.style.color = "#145c3d";
+        link.style.display = "inline-block";
+        link.style.marginTop = "12px";
+
+        empty.append(heading, detail, link);
+        ordersList.appendChild(empty);
+        return;
+      }
+
+      orders.forEach(order => {
+        const card = document.createElement("article");
+        card.className = "order-card";
+
+        const head = document.createElement("div");
+        head.className = "order-head";
+
+        const ref = document.createElement("div");
+        ref.className = "order-ref";
+        ref.textContent = "Order " + order.order_reference;
+
+        const status = document.createElement("span");
+        status.className = "status " + (order.status || "pending");
+        status.textContent = order.status || "pending";
+
+        head.append(ref, status);
+
+        const date = document.createElement("p");
+        date.className = "muted";
+        date.textContent = "Placed " + niceDate(order.created_at);
+
+        const items = document.createElement("div");
+        items.className = "order-items";
+
+        (order.order_items || []).forEach(item => {
+          const row = document.createElement("div");
+          row.className = "order-item";
+
+          const name = document.createElement("span");
+          const productName = Array.isArray(item.products)
+            ? item.products[0]?.name
+            : item.products?.name;
+
+          name.textContent =
+            (productName || "Product") + " × " + item.quantity;
+
+          const price = document.createElement("span");
+          price.textContent = money(
+            Number(item.unit_price) * Number(item.quantity)
+          );
+
+          row.append(name, price);
+          items.appendChild(row);
+        });
+
+        const total = document.createElement("div");
+        total.className = "order-total";
+
+        const totalLabel = document.createElement("span");
+        totalLabel.textContent = "Order total";
+
+        const totalValue = document.createElement("span");
+        totalValue.textContent = money(order.total_amount);
+
+        total.append(totalLabel, totalValue);
+        card.append(head, date, items, total);
+        ordersList.appendChild(card);
+      });
+    } catch (error) {
+      console.error("SellFlow order history:", error);
+      ordersList.replaceChildren();
+
+      const empty = document.createElement("div");
+      empty.className = "empty";
+
+      const heading = document.createElement("strong");
+      heading.textContent = "Couldn't load your orders";
+
+      const detail = document.createElement("div");
+      detail.textContent =
+        "Please refresh the page. If this continues, check your database access policies.";
+
+      empty.append(heading, detail);
+      ordersList.appendChild(empty);
+    }
+  }
+
+  async function showAuth() {
+    dashboardSection.classList.add("hidden");
+    authSection.classList.remove("hidden");
+  }
+
+  document.getElementById("refreshButton").addEventListener("click", loadOrders);
+
+  document.getElementById("signoutButton").addEventListener("click", async () => {
+    const { error } = await client.auth.signOut();
+
+    if (error) {
+      setMessage(document.getElementById("ordersMessage"), error.message, "error");
+      return;
+    }
+
+    await showAuth();
+    setMode("signin");
+    authForm.reset();
+  });
+
+  async function initialize() {
+    const { data, error } = await client.auth.getSession();
+
+    if (error) {
+      setMessage(authMessage, error.message, "error");
+      return;
+    }
+
+    if (data.session?.user) {
+      await showDashboard(data.session.user);
+    }
+  }
+
+  client.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_OUT" || !session) {
+      showAuth();
+    }
+  });
+
+  initialize();
+</script>
+</body>
+</html>
