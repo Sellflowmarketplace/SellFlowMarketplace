@@ -4,36 +4,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#10231c">
-  <title>SellFlow — Digital Marketplace</title>
+  <meta name="theme-color" content="#103c2d">
   <meta name="description" content="Explore digital services and approved virtual-number products in one place, with clear pricing and order tracking.">
+  <title>SellFlow — Digital Marketplace</title>
 
   <style>
     :root {
-      --green-dark: #10231c;
-      --green: #20bd73;
-      --green-light: #35d58b;
-      --text: #17221c;
-      --muted: #68756d;
-      --border: #e6ebe7;
-      --background: #f7f9f7;
+      --green: #103c2d;
+      --green-dark: #09291f;
+      --accent: #31c982;
+      --bg: #f6f8f7;
       --white: #ffffff;
+      --text: #17231d;
+      --muted: #718078;
+      --border: #e6ece8;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: var(--background);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
       color: var(--text);
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
     }
 
     button, input { font: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
 
     .topbar {
-      background: var(--green-dark);
+      background: var(--green);
       color: white;
       padding: 18px 6%;
       display: flex;
@@ -42,36 +43,38 @@
       gap: 20px;
     }
 
-    .logo {
+    .brand {
       display: flex;
       align-items: center;
       gap: 10px;
       font-size: 23px;
       font-weight: 800;
-      letter-spacing: -0.8px;
+      letter-spacing: -1px;
     }
 
-    .logo-mark {
-      display: grid;
-      place-items: center;
+    .brand-mark {
       width: 36px;
       height: 36px;
       border-radius: 11px;
+      background: var(--accent);
       color: var(--green-dark);
-      background: var(--green-light);
+      display: grid;
+      place-items: center;
+      font-size: 21px;
       font-weight: 900;
     }
 
-    .top-link {
-      color: #e2eee7;
-      text-decoration: none;
-      font-size: 14px;
+    .top-note {
+      font-size: 13px;
+      color: #d3e7dc;
     }
 
     .hero {
-      background: var(--green-dark);
+      padding: 74px 6% 68px;
+      background:
+        radial-gradient(ellipse at 90% 0%, #245b43 0%, transparent 45%),
+        var(--green);
       color: white;
-      padding: 65px 6% 78px;
     }
 
     .hero-inner {
@@ -80,64 +83,91 @@
     }
 
     .eyebrow {
-      display: inline-block;
-      padding: 8px 12px;
-      background: rgba(53, 213, 139, 0.12);
-      color: #8df0bd;
-      border: 1px solid rgba(53, 213, 139, 0.22);
-      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #baf4d5;
       font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 18px;
+      font-weight: 750;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
     }
 
     h1 {
-      max-width: 650px;
-      margin: 0 0 18px;
-      font-size: clamp(36px, 6vw, 58px);
-      line-height: 1.08;
-      letter-spacing: -2px;
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.07;
+      letter-spacing: -2.8px;
+      max-width: 680px;
+      margin: 0 0 20px;
     }
 
     .hero p {
-      max-width: 650px;
-      color: #c5d5cb;
-      line-height: 1.8;
+      max-width: 590px;
+      color: #d6e6dd;
       font-size: 16px;
+      line-height: 1.8;
       margin: 0;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 27px;
+    }
+
+    .pill {
+      border: 1px solid #426a58;
+      color: #e6f4eb;
+      padding: 9px 13px;
+      border-radius: 100px;
+      font-size: 12px;
     }
 
     main {
       max-width: 1100px;
-      margin: -25px auto 0;
-      padding: 0 22px 55px;
-      position: relative;
+      margin: 0 auto;
+      padding: 44px 24px 70px;
     }
 
     .search-wrap {
-      background: white;
-      border: 1px solid var(--border);
-      box-shadow: 0 8px 30px rgba(16, 35, 28, 0.06);
-      border-radius: 15px;
-      padding: 12px 16px;
+      position: relative;
+      margin-top: -69px;
+      margin-bottom: 43px;
+    }
+
+    .search-box {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 42px;
+      background: white;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 35px #071e1410;
+      border-radius: 15px;
+      padding: 7px 18px;
     }
 
     .search-icon {
-      font-size: 20px;
       color: var(--muted);
+      font-size: 21px;
     }
 
-    .search-wrap input {
+    .search-box input {
       width: 100%;
+      min-width: 0;
       border: 0;
       outline: 0;
-      padding: 7px 0;
-      color: var(--text);
+      padding: 14px 0;
       background: transparent;
+      color: var(--text);
     }
 
     .section-heading {
@@ -145,501 +175,510 @@
       align-items: end;
       justify-content: space-between;
       gap: 15px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
-    h2 {
+    .section-heading h2 {
       font-size: 25px;
-      letter-spacing: -0.7px;
+      letter-spacing: -0.8px;
       margin: 0 0 7px;
     }
 
-    .section-subtitle {
+    .section-heading p {
       margin: 0;
       color: var(--muted);
       font-size: 14px;
       line-height: 1.6;
     }
 
+    .category-count {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border: 1px solid #d9e9df;
+      background: #eef7f1;
+      color: #365b46;
+      padding: 17px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .notice-icon {
+      color: #168451;
+      font-size: 19px;
+      font-weight: 800;
+    }
+
     .category-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      gap: 19px;
     }
 
     .category-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 220px;
-      padding: 23px;
       background: white;
       border: 1px solid var(--border);
       border-radius: 17px;
-      transition: transform .2s, box-shadow .2s, border-color .2s;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      min-height: 245px;
+      transition: transform .18s ease, box-shadow .18s ease;
     }
 
     .category-card:hover {
       transform: translateY(-3px);
-      border-color: #b5e8cc;
-      box-shadow: 0 12px 30px rgba(16, 35, 28, 0.06);
+      box-shadow: 0 12px 30px #102d1b0c;
     }
 
     .category-icon {
-      width: 48px;
-      height: 48px;
       display: grid;
       place-items: center;
-      background: #e9f9f0;
-      color: #13864e;
+      width: 49px;
+      height: 49px;
       border-radius: 14px;
+      background: #eaf7ef;
+      color: var(--green);
       font-size: 23px;
-      margin-bottom: 20px;
+      margin-bottom: 23px;
     }
 
     .category-card h3 {
-      font-size: 17px;
+      font-size: 18px;
       margin: 0 0 9px;
+      letter-spacing: -0.4px;
     }
 
     .category-card p {
       font-size: 13px;
       color: var(--muted);
-      line-height: 1.65;
-      margin: 0 0 22px;
+      line-height: 1.7;
+      margin: 0 0 23px;
     }
 
     .explore {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      align-self: flex-start;
+      width: fit-content;
       margin-top: auto;
-      background: transparent;
-      color: #13864e;
       border: 0;
-      padding: 0;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 750;
-    }
-
-    .notice {
-      display: flex;
-      gap: 13px;
-      align-items: flex-start;
-      background: #edf8f1;
-      border: 1px solid #d7efdf;
-      border-radius: 13px;
-      padding: 18px;
-      margin-top: 34px;
-      color: #315640;
+      border-radius: 9px;
+      background: var(--green);
+      color: white;
       font-size: 13px;
-      line-height: 1.7;
+      font-weight: 700;
+      padding: 12px 16px;
+      transition: background .2s;
     }
 
-    .notice-icon { font-size: 19px; }
-    .notice p { margin: 0; }
+    .explore:hover { background: #1b6045; }
 
-    .view { display: none; }
-    .view.active { display: block; }
+    .status {
+      text-align: center;
+      color: var(--muted);
+      padding: 30px 12px;
+      line-height: 1.7;
+      font-size: 14px;
+    }
 
     .back-button {
-      border: 1px solid var(--border);
       background: white;
-      color: var(--text);
+      border: 1px solid var(--border);
+      color: var(--green);
+      border-radius: 9px;
       padding: 10px 14px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 650;
-      margin-bottom: 22px;
+      font-weight: 700;
+      margin-bottom: 24px;
     }
 
     .product-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
-      margin-top: 23px;
     }
 
     .product-card {
       background: white;
       border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 20px;
-      overflow-wrap: anywhere;
+      border-radius: 14px;
+      padding: 21px;
     }
 
-    .product-card h3 { margin: 0 0 9px; font-size: 16px; }
-    .product-card p { color: var(--muted); font-size: 13px; line-height: 1.7; }
-    .product-price { color: #13864e; font-size: 19px; font-weight: 800; }
-    .empty-state {
-      grid-column: 1 / -1;
-      padding: 35px 20px;
-      background: white;
-      border: 1px dashed #ccd8cf;
-      border-radius: 15px;
-      text-align: center;
-      color: var(--muted);
-      line-height: 1.8;
+    .product-card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
     }
 
-    .status {
-      margin: 15px 0;
+    .product-card p {
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.7;
     }
 
-    footer {
-      padding: 25px 6%;
-      background: white;
+    .product-price {
+      color: var(--green);
+      font-size: 19px;
+      font-weight: 800;
+      margin-top: 18px;
+    }
+
+    .footer {
+      background: #fff;
       border-top: 1px solid var(--border);
+      padding: 26px 6%;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
       color: var(--muted);
-      font-size: 13px;
-      text-align: center;
+      font-size: 12px;
     }
+
+    .footer strong { color: var(--green); }
 
     @media (max-width: 760px) {
-      .topbar { padding: 15px 5%; }
-      .hero { padding: 50px 6% 65px; }
-      h1 { letter-spacing: -1.3px; }
-      main { padding-left: 17px; padding-right: 17px; }
-      .category-grid, .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .category-card { padding: 17px; }
-    }
-
-    @media (max-width: 480px) {
-      .category-grid, .product-grid { grid-template-columns: 1fr; }
-      .category-card { min-height: 195px; }
+      .hero { padding: 57px 6% 75px; }
+      h1 { letter-spacing: -1.7px; }
+      .category-grid, .product-grid {
+        grid-template-columns: 1fr;
+      }
+      .category-card { min-height: 220px; }
+      main { padding-left: 18px; padding-right: 18px; }
       .section-heading { align-items: flex-start; }
-      .hero p { font-size: 15px; }
+      .topbar { padding: 15px 5%; }
+      .top-note { font-size: 11px; }
     }
   </style>
 </head>
 
 <body>
   <header class="topbar">
-    <a class="logo" href="#" onclick="showHome(); return false;"
-       style="color:white;text-decoration:none;">
-      <span class="logo-mark">S</span>
+    <div class="brand">
+      <span class="brand-mark">S</span>
       <span>SellFlow</span>
-    </a>
-    <a class="top-link" href="#categories">Explore marketplace ↗</a>
+    </div>
+    <div class="top-note">Your digital marketplace</div>
   </header>
 
   <section class="hero">
     <div class="hero-inner">
-      <span class="eyebrow">SELLFLOW MARKETPLACE</span>
-      <h1>Digital services. Made simpler.</h1>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        SIMPLE. SECURE. STREAMLINED.
+      </div>
+      <h1>Digital services.<br>Made simpler.</h1>
       <p>
-        Explore digital services and approved virtual-number products in one
-        place, with clear pricing and order tracking.
+        Explore digital services and approved virtual-number products
+        in one place, with clear pricing and order tracking.
       </p>
+      <div class="hero-pills">
+        <span class="pill">Digital products</span>
+        <span class="pill">Clear pricing</span>
+        <span class="pill">Order tracking</span>
+      </div>
     </div>
   </section>
 
   <main>
     <div class="search-wrap">
-      <span class="search-icon">⌕</span>
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search digital services..."
-        aria-label="Search digital services"
-      >
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search digital services..."
+          aria-label="Search digital services"
+        >
+      </div>
     </div>
 
-    <section id="homeView" class="view active">
-      <div class="section-heading" id="categories">
+    <section id="categorySection">
+      <div class="section-heading">
         <div>
           <h2>Explore categories</h2>
-          <p class="section-subtitle">
-            Find what you need, all in one place.
-          </p>
+          <p>Find the digital products and services you need.</p>
         </div>
+        <span class="category-count" id="categoryCount"></span>
       </div>
-
-      <div id="categoryGrid" class="category-grid">
-        <div class="empty-state">Loading categories...</div>
-      </div>
-
-      <div id="categoryStatus" class="status" role="status"></div>
 
       <div class="notice">
         <span class="notice-icon">✓</span>
-        <p>
+        <span>
           Shop with confidence. Products will be listed after supplier
           authorization and fulfillment requirements have been verified.
-        </p>
+        </span>
       </div>
+
+      <div id="categoryGrid" class="category-grid"></div>
+      <div id="categoryStatus" class="status">Loading categories...</div>
     </section>
 
-    <section id="productsView" class="view">
-      <button class="back-button" onclick="showHome()">← Back to categories</button>
+    <section id="productSection" hidden>
+      <button id="backButton" class="back-button">← All categories</button>
       <div class="section-heading">
         <div>
-          <h2 id="productsHeading">Products</h2>
-          <p id="productsSubtitle" class="section-subtitle">
-            Available listings in this category.
-          </p>
+          <h2 id="productHeading">Products</h2>
+          <p id="productSubheading">Available listings in this category.</p>
         </div>
       </div>
       <div id="productGrid" class="product-grid"></div>
-      <div id="productStatus" class="status" role="status"></div>
+      <div id="productStatus" class="status" hidden></div>
     </section>
   </main>
 
-  <footer>© 2026 SellFlow. All rights reserved.</footer>
+  <footer class="footer">
+    <span>© 2026 <strong>SellFlow</strong>. All rights reserved.</span>
+    <span>Digital services. Made simpler.</span>
+  </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // Your existing SellFlow Supabase project.
-    const SUPABASE_URL = "https://qsbimzyedsdbcjcabkyz.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_L5AwH3mg9OB4k0weslkFqQ_WJJWRCt-";
+    // Your new Supabase project credentials.
+    // The publishable key is intended for public client-side use.
+    const SUPABASE_URL = "https://wmqzpqgxacsvljaawrle.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_tCr23SY30etatIZuWdbSXA_bllnusS6";
 
-    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const API = `${SUPABASE_URL}/rest/v1`;
 
     const categoryGrid = document.getElementById("categoryGrid");
     const categoryStatus = document.getElementById("categoryStatus");
+    const categoryCount = document.getElementById("categoryCount");
+    const searchInput = document.getElementById("searchInput");
+    const categorySection = document.getElementById("categorySection");
+    const productSection = document.getElementById("productSection");
     const productGrid = document.getElementById("productGrid");
     const productStatus = document.getElementById("productStatus");
-    const searchInput = document.getElementById("searchInput");
 
     let categories = [];
-    let selectedCategory = null;
+    let currentCategory = null;
 
-    // Categories are ordered deliberately, not alphabetically.
-    // Existing digital-services entries are displayed as Social Media Logs.
-    function categoryLabel(category) {
-      const slug = String(category.slug || "").toLowerCase();
-      const name = String(category.name || "").toLowerCase();
+    const icons = ["◈", "☎", "✉", "◇", "▦", "◎"];
 
-      if (slug === "digital-services" ||
-          slug === "social-media-logs" ||
-          name === "digital services" ||
-          name === "social media logs") {
-        return "Social Media Logs";
+    // All requests use the new project's publishable key.
+    async function supabaseGet(table, query = "") {
+      const response = await fetch(
+        `${API}/${table}?${query}`,
+        {
+          headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`
+          }
+        }
+      );
+
+      if (!response.ok) {
+        const detail = await response.text();
+        throw new Error(
+          `Supabase request failed (${response.status}): ${detail}`
+        );
       }
 
-      return category.name || "Category";
-    }
-
-    function categorySlug(category) {
-      const slug = String(category.slug || "").toLowerCase();
-      const name = String(category.name || "").toLowerCase();
-
-      if (slug === "digital-services" ||
-          slug === "social-media-logs" ||
-          name === "digital services" ||
-          name === "social media logs") {
-        return "social-media-logs";
-      }
-
-      return slug;
-    }
-
-    function categoryPriority(category) {
-      const slug = categorySlug(category);
-      const name = categoryLabel(category).toLowerCase();
-
-      if (slug === "social-media-logs") return 0;
-      if (slug === "business-numbers" || name === "business numbers") return 1;
-      if (slug === "sms-services" || name === "sms services") return 100;
-
-      // Keep all other existing categories between the first and last.
-      return 10;
-    }
-
-    function iconFor(category) {
-      const slug = categorySlug(category);
-      const name = categoryLabel(category).toLowerCase();
-
-      if (slug === "social-media-logs") return "◈";
-      if (slug === "business-numbers" || name === "business numbers") return "☎";
-      if (slug === "sms-services" || name === "sms services") return "✉";
-      return "◇";
+      return response.json();
     }
 
     function escapeHTML(value) {
-      return String(value ?? "").replace(/[&<>"']/g, character => ({
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#39;"
-      })[character]);
+      })[char]);
     }
 
-    async function loadCategories() {
-      categoryStatus.textContent = "";
+    function categoryDescription(category) {
+      if (category.description) return category.description;
 
-      const { data, error } = await db
-        .from("categories")
-        .select("*")
-        .eq("is_active", true);
+      const name = category.name.toLowerCase();
 
-      if (error) {
-        categoryGrid.innerHTML =
-          '<div class="empty-state">Categories could not be loaded. Check your Supabase connection and category read permissions.</div>';
-        categoryStatus.textContent = error.message;
-        return;
+      if (name === "social media logs") {
+        return "Browse social media account listings.";
       }
 
-      categories = (data || []).sort((a, b) => {
-        const difference = categoryPriority(a) - categoryPriority(b);
-        if (difference !== 0) return difference;
-        return categoryLabel(a).localeCompare(categoryLabel(b));
-      });
+      if (name === "business numbers") {
+        return "Explore available business number products.";
+      }
 
-      renderCategories(categories);
+      if (name === "sms services") {
+        return "Explore SMS services and related products.";
+      }
+
+      return "Explore products and services in this category.";
+    }
+
+    function sortCategories(rows) {
+      return [...rows].sort((a, b) => {
+        function rank(category) {
+          const name = (category.name || "").trim().toLowerCase();
+          const slug = (category.slug || "").trim().toLowerCase();
+
+          if (name === "social media logs" ||
+              slug === "social-media-logs" ||
+              slug === "digital-services") return 0;
+
+          if (name === "business numbers" ||
+              slug === "business-numbers") return 1;
+
+          if (name === "sms services" ||
+              slug === "sms-services") return 100;
+
+          return 50;
+        }
+
+        return rank(a) - rank(b) ||
+          (a.name || "").localeCompare(b.name || "");
+      });
     }
 
     function renderCategories(rows) {
+      categoryGrid.replaceChildren();
+
       if (!rows.length) {
-        categoryGrid.innerHTML =
-          '<div class="empty-state">No active categories are available yet.</div>';
+        categoryStatus.hidden = false;
+        categoryStatus.textContent =
+          "No categories have been added yet. Create your categories in Supabase to display them here.";
+        categoryCount.textContent = "0 categories";
         return;
       }
 
-      categoryGrid.innerHTML = rows.map(category => {
-        const description = category.description ||
-          "Explore available listings in this category.";
+      categoryStatus.hidden = true;
+      categoryCount.textContent =
+        `${rows.length} categor${rows.length === 1 ? "y" : "ies"}`;
 
-        return `
-          <article class="category-card">
-            <div class="category-icon">${iconFor(category)}</div>
-            <h3>${escapeHTML(categoryLabel(category))}</h3>
-            <p>${escapeHTML(description)}</p>
-            <button class="explore" data-category-id="${escapeHTML(category.id)}">
-              Explore <span aria-hidden="true">→</span>
-            </button>
-          </article>
-        `;
-      }).join("");
+      rows.forEach((category, index) => {
+        const card = document.createElement("article");
+        card.className = "category-card";
 
-      categoryGrid.querySelectorAll("[data-category-id]").forEach(button => {
-        button.addEventListener("click", () => {
-          const category = categories.find(
-            item => String(item.id) === button.dataset.categoryId
-          );
-          if (category) openCategory(category);
-        });
+        const icon = document.createElement("div");
+        icon.className = "category-icon";
+        icon.textContent = icons[index % icons.length];
+
+        const title = document.createElement("h3");
+        title.textContent = category.name;
+
+        const description = document.createElement("p");
+        description.textContent = categoryDescription(category);
+
+        const button = document.createElement("button");
+        button.className = "explore";
+        button.textContent = "Explore →";
+        button.addEventListener("click", () => openCategory(category));
+
+        card.append(icon, title, description, button);
+        categoryGrid.appendChild(card);
       });
+    }
+
+    async function loadCategories() {
+      categoryStatus.hidden = false;
+      categoryStatus.textContent = "Loading categories...";
+
+      try {
+        const rows = await supabaseGet(
+          "categories",
+          "select=*&is_active=eq.true&order=name.asc"
+        );
+
+        categories = sortCategories(rows);
+        renderCategories(categories);
+      } catch (error) {
+        console.error(error);
+        categoryStatus.hidden = false;
+        categoryStatus.textContent =
+          "We couldn't load categories. Check that the categories table exists and its public read policy is configured in Supabase.";
+        categoryCount.textContent = "";
+      }
     }
 
     async function openCategory(category) {
-      selectedCategory = category;
-      document.getElementById("homeView").classList.remove("active");
-      document.getElementById("productsView").classList.add("active");
+      currentCategory = category;
+      categorySection.hidden = true;
+      productSection.hidden = false;
+      document.getElementById("productHeading").textContent = category.name;
+      document.getElementById("productSubheading").textContent =
+        categoryDescription(category);
 
-      document.getElementById("productsHeading").textContent =
-        categoryLabel(category);
-      document.getElementById("productsSubtitle").textContent =
-        "Explore available listings in this category.";
-
-      searchInput.value = "";
-      productGrid.innerHTML =
-        '<div class="empty-state">Loading listings...</div>';
-      productStatus.textContent = "";
-
-      history.replaceState(
-        null,
-        "",
-        "?category=" + encodeURIComponent(categorySlug(category))
-      );
+      productGrid.replaceChildren();
+      productStatus.hidden = false;
+      productStatus.textContent = "Loading listings...";
 
       window.scrollTo({ top: 0, behavior: "smooth" });
 
-      // Products are fetched by the selected category's real database ID.
-      const { data, error } = await db
-        .from("products")
-        .select("*")
-        .eq("category_id", category.id);
+      try {
+        // Products must reference this category through category_id.
+        const products = await supabaseGet(
+          "products",
+          `select=*&category_id=eq.${encodeURIComponent(category.id)}&is_active=eq.true&order=id.desc`
+        );
 
-      if (error) {
-        productGrid.innerHTML =
-          '<div class="empty-state">Listings could not be loaded. Check your products table and its read permissions.</div>';
-        productStatus.textContent = error.message;
-        return;
+        productGrid.replaceChildren();
+
+        if (!products.length) {
+          productStatus.hidden = false;
+          productStatus.textContent =
+            "There are no listings in this category yet. Please check back soon.";
+          return;
+        }
+
+        productStatus.hidden = true;
+
+        products.forEach(product => {
+          const card = document.createElement("article");
+          card.className = "product-card";
+
+          const heading = document.createElement("h3");
+          heading.textContent =
+            product.name || product.title || product.product_name ||
+            "Digital product";
+
+          const description = document.createElement("p");
+          description.textContent =
+            product.description || "Product details will be provided soon.";
+
+          const price = document.createElement("div");
+          price.className = "product-price";
+
+          const amount =
+            product.price ?? product.amount ?? product.selling_price;
+
+          price.textContent = amount == null
+            ? "Price available soon"
+            : `₦${Number(amount).toLocaleString("en-NG")}`;
+
+          card.append(heading, description, price);
+          productGrid.appendChild(card);
+        });
+      } catch (error) {
+        console.error(error);
+        productStatus.hidden = false;
+        productStatus.textContent =
+          "We couldn't load these listings. Check the products table, its columns, and its public read policy in Supabase.";
       }
-
-      const listings = (data || []).filter(product => {
-        if (product.is_active === false) return false;
-        if (product.status &&
-            !["active", "approved", "available"].includes(
-              String(product.status).toLowerCase()
-            )) return false;
-        return true;
-      });
-
-      renderProducts(listings);
     }
 
-    function renderProducts(products) {
-      if (!products.length) {
-        productGrid.innerHTML = `
-          <div class="empty-state">
-            <strong>No listings available yet.</strong><br>
-            Products will appear here when approved listings are added
-            to this category.
-          </div>`;
-        return;
-      }
-
-      productGrid.innerHTML = products.map(product => {
-        const title = product.name || product.title || product.product_name ||
-          "Digital product";
-        const description = product.description ||
-          "View details for this digital product.";
-        const price = product.price ?? product.amount ?? product.selling_price;
-
-        const priceText = price === undefined || price === null
-          ? "Price available soon"
-          : "₦" + Number(price).toLocaleString("en-NG");
-
-        return `
-          <article class="product-card">
-            <h3>${escapeHTML(title)}</h3>
-            <p>${escapeHTML(description)}</p>
-            <div class="product-price">${escapeHTML(priceText)}</div>
-          </article>
-        `;
-      }).join("");
-    }
-
-    function showHome() {
-      selectedCategory = null;
-      document.getElementById("productsView").classList.remove("active");
-      document.getElementById("homeView").classList.add("active");
-      searchInput.value = "";
-      history.replaceState(null, "", window.location.pathname);
-      renderCategories(categories);
+    document.getElementById("backButton").addEventListener("click", () => {
+      productSection.hidden = true;
+      categorySection.hidden = false;
+      currentCategory = null;
       window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    });
 
     searchInput.addEventListener("input", () => {
-      const term = searchInput.value.trim().toLowerCase();
+      const query = searchInput.value.trim().toLowerCase();
 
-      if (selectedCategory) {
-        const heading = categoryLabel(selectedCategory).toLowerCase();
-
-        if (term && !heading.includes(term)) {
-          productGrid.innerHTML =
-            '<div class="empty-state">Search is currently limited to the selected category.</div>';
-        } else if (!term) {
-          openCategory(selectedCategory);
-        }
-        return;
+      if (productSection.hidden) {
+        renderCategories(
+          categories.filter(category =>
+            `${category.name || ""} ${category.description || ""}`
+              .toLowerCase().includes(query)
+          )
+        );
       }
-
-      renderCategories(categories.filter(category => {
-        const searchable = [
-          categoryLabel(category),
-          category.description,
-          category.slug
-        ].join(" ").toLowerCase();
-
-        return searchable.includes(term);
-      }));
     });
 
     loadCategories();
