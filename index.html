@@ -1,0 +1,648 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10231c">
+  <title>SellFlow — Digital Marketplace</title>
+  <meta name="description" content="Explore digital services and approved virtual-number products in one place, with clear pricing and order tracking.">
+
+  <style>
+    :root {
+      --green-dark: #10231c;
+      --green: #20bd73;
+      --green-light: #35d58b;
+      --text: #17221c;
+      --muted: #68756d;
+      --border: #e6ebe7;
+      --background: #f7f9f7;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .topbar {
+      background: var(--green-dark);
+      color: white;
+      padding: 18px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+    }
+
+    .logo-mark {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      color: var(--green-dark);
+      background: var(--green-light);
+      font-weight: 900;
+    }
+
+    .top-link {
+      color: #e2eee7;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .hero {
+      background: var(--green-dark);
+      color: white;
+      padding: 65px 6% 78px;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      background: rgba(53, 213, 139, 0.12);
+      color: #8df0bd;
+      border: 1px solid rgba(53, 213, 139, 0.22);
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      max-width: 650px;
+      margin: 0 0 18px;
+      font-size: clamp(36px, 6vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: #c5d5cb;
+      line-height: 1.8;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: -25px auto 0;
+      padding: 0 22px 55px;
+      position: relative;
+    }
+
+    .search-wrap {
+      background: white;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 30px rgba(16, 35, 28, 0.06);
+      border-radius: 15px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 42px;
+    }
+
+    .search-icon {
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    .search-wrap input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      padding: 7px 0;
+      color: var(--text);
+      background: transparent;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 25px;
+      letter-spacing: -0.7px;
+      margin: 0 0 7px;
+    }
+
+    .section-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .category-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 220px;
+      padding: 23px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-3px);
+      border-color: #b5e8cc;
+      box-shadow: 0 12px 30px rgba(16, 35, 28, 0.06);
+    }
+
+    .category-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      background: #e9f9f0;
+      color: #13864e;
+      border-radius: 14px;
+      font-size: 23px;
+      margin-bottom: 20px;
+    }
+
+    .category-card h3 {
+      font-size: 17px;
+      margin: 0 0 9px;
+    }
+
+    .category-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0 0 22px;
+    }
+
+    .explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      margin-top: auto;
+      background: transparent;
+      color: #13864e;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .notice {
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+      background: #edf8f1;
+      border: 1px solid #d7efdf;
+      border-radius: 13px;
+      padding: 18px;
+      margin-top: 34px;
+      color: #315640;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .notice-icon { font-size: 19px; }
+    .notice p { margin: 0; }
+
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .back-button {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 650;
+      margin-bottom: 22px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 23px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 20px;
+      overflow-wrap: anywhere;
+    }
+
+    .product-card h3 { margin: 0 0 9px; font-size: 16px; }
+    .product-card p { color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .product-price { color: #13864e; font-size: 19px; font-weight: 800; }
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 35px 20px;
+      background: white;
+      border: 1px dashed #ccd8cf;
+      border-radius: 15px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .status {
+      margin: 15px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer {
+      padding: 25px 6%;
+      background: white;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .topbar { padding: 15px 5%; }
+      .hero { padding: 50px 6% 65px; }
+      h1 { letter-spacing: -1.3px; }
+      main { padding-left: 17px; padding-right: 17px; }
+      .category-grid, .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .category-card { padding: 17px; }
+    }
+
+    @media (max-width: 480px) {
+      .category-grid, .product-grid { grid-template-columns: 1fr; }
+      .category-card { min-height: 195px; }
+      .section-heading { align-items: flex-start; }
+      .hero p { font-size: 15px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="logo" href="#" onclick="showHome(); return false;"
+       style="color:white;text-decoration:none;">
+      <span class="logo-mark">S</span>
+      <span>SellFlow</span>
+    </a>
+    <a class="top-link" href="#categories">Explore marketplace ↗</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">SELLFLOW MARKETPLACE</span>
+      <h1>Digital services. Made simpler.</h1>
+      <p>
+        Explore digital services and approved virtual-number products in one
+        place, with clear pricing and order tracking.
+      </p>
+    </div>
+  </section>
+
+  <main>
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search digital services..."
+        aria-label="Search digital services"
+      >
+    </div>
+
+    <section id="homeView" class="view active">
+      <div class="section-heading" id="categories">
+        <div>
+          <h2>Explore categories</h2>
+          <p class="section-subtitle">
+            Find what you need, all in one place.
+          </p>
+        </div>
+      </div>
+
+      <div id="categoryGrid" class="category-grid">
+        <div class="empty-state">Loading categories...</div>
+      </div>
+
+      <div id="categoryStatus" class="status" role="status"></div>
+
+      <div class="notice">
+        <span class="notice-icon">✓</span>
+        <p>
+          Shop with confidence. Products will be listed after supplier
+          authorization and fulfillment requirements have been verified.
+        </p>
+      </div>
+    </section>
+
+    <section id="productsView" class="view">
+      <button class="back-button" onclick="showHome()">← Back to categories</button>
+      <div class="section-heading">
+        <div>
+          <h2 id="productsHeading">Products</h2>
+          <p id="productsSubtitle" class="section-subtitle">
+            Available listings in this category.
+          </p>
+        </div>
+      </div>
+      <div id="productGrid" class="product-grid"></div>
+      <div id="productStatus" class="status" role="status"></div>
+    </section>
+  </main>
+
+  <footer>© 2026 SellFlow. All rights reserved.</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Your existing SellFlow Supabase project.
+    const SUPABASE_URL = "https://qsbimzyedsdbcjcabkyz.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_L5AwH3mg9OB4k0weslkFqQ_WJJWRCt-";
+
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const categoryGrid = document.getElementById("categoryGrid");
+    const categoryStatus = document.getElementById("categoryStatus");
+    const productGrid = document.getElementById("productGrid");
+    const productStatus = document.getElementById("productStatus");
+    const searchInput = document.getElementById("searchInput");
+
+    let categories = [];
+    let selectedCategory = null;
+
+    // Categories are ordered deliberately, not alphabetically.
+    // Existing digital-services entries are displayed as Social Media Logs.
+    function categoryLabel(category) {
+      const slug = String(category.slug || "").toLowerCase();
+      const name = String(category.name || "").toLowerCase();
+
+      if (slug === "digital-services" ||
+          slug === "social-media-logs" ||
+          name === "digital services" ||
+          name === "social media logs") {
+        return "Social Media Logs";
+      }
+
+      return category.name || "Category";
+    }
+
+    function categorySlug(category) {
+      const slug = String(category.slug || "").toLowerCase();
+      const name = String(category.name || "").toLowerCase();
+
+      if (slug === "digital-services" ||
+          slug === "social-media-logs" ||
+          name === "digital services" ||
+          name === "social media logs") {
+        return "social-media-logs";
+      }
+
+      return slug;
+    }
+
+    function categoryPriority(category) {
+      const slug = categorySlug(category);
+      const name = categoryLabel(category).toLowerCase();
+
+      if (slug === "social-media-logs") return 0;
+      if (slug === "business-numbers" || name === "business numbers") return 1;
+      if (slug === "sms-services" || name === "sms services") return 100;
+
+      // Keep all other existing categories between the first and last.
+      return 10;
+    }
+
+    function iconFor(category) {
+      const slug = categorySlug(category);
+      const name = categoryLabel(category).toLowerCase();
+
+      if (slug === "social-media-logs") return "◈";
+      if (slug === "business-numbers" || name === "business numbers") return "☎";
+      if (slug === "sms-services" || name === "sms services") return "✉";
+      return "◇";
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[character]);
+    }
+
+    async function loadCategories() {
+      categoryStatus.textContent = "";
+
+      const { data, error } = await db
+        .from("categories")
+        .select("*")
+        .eq("is_active", true);
+
+      if (error) {
+        categoryGrid.innerHTML =
+          '<div class="empty-state">Categories could not be loaded. Check your Supabase connection and category read permissions.</div>';
+        categoryStatus.textContent = error.message;
+        return;
+      }
+
+      categories = (data || []).sort((a, b) => {
+        const difference = categoryPriority(a) - categoryPriority(b);
+        if (difference !== 0) return difference;
+        return categoryLabel(a).localeCompare(categoryLabel(b));
+      });
+
+      renderCategories(categories);
+    }
+
+    function renderCategories(rows) {
+      if (!rows.length) {
+        categoryGrid.innerHTML =
+          '<div class="empty-state">No active categories are available yet.</div>';
+        return;
+      }
+
+      categoryGrid.innerHTML = rows.map(category => {
+        const description = category.description ||
+          "Explore available listings in this category.";
+
+        return `
+          <article class="category-card">
+            <div class="category-icon">${iconFor(category)}</div>
+            <h3>${escapeHTML(categoryLabel(category))}</h3>
+            <p>${escapeHTML(description)}</p>
+            <button class="explore" data-category-id="${escapeHTML(category.id)}">
+              Explore <span aria-hidden="true">→</span>
+            </button>
+          </article>
+        `;
+      }).join("");
+
+      categoryGrid.querySelectorAll("[data-category-id]").forEach(button => {
+        button.addEventListener("click", () => {
+          const category = categories.find(
+            item => String(item.id) === button.dataset.categoryId
+          );
+          if (category) openCategory(category);
+        });
+      });
+    }
+
+    async function openCategory(category) {
+      selectedCategory = category;
+      document.getElementById("homeView").classList.remove("active");
+      document.getElementById("productsView").classList.add("active");
+
+      document.getElementById("productsHeading").textContent =
+        categoryLabel(category);
+      document.getElementById("productsSubtitle").textContent =
+        "Explore available listings in this category.";
+
+      searchInput.value = "";
+      productGrid.innerHTML =
+        '<div class="empty-state">Loading listings...</div>';
+      productStatus.textContent = "";
+
+      history.replaceState(
+        null,
+        "",
+        "?category=" + encodeURIComponent(categorySlug(category))
+      );
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // Products are fetched by the selected category's real database ID.
+      const { data, error } = await db
+        .from("products")
+        .select("*")
+        .eq("category_id", category.id);
+
+      if (error) {
+        productGrid.innerHTML =
+          '<div class="empty-state">Listings could not be loaded. Check your products table and its read permissions.</div>';
+        productStatus.textContent = error.message;
+        return;
+      }
+
+      const listings = (data || []).filter(product => {
+        if (product.is_active === false) return false;
+        if (product.status &&
+            !["active", "approved", "available"].includes(
+              String(product.status).toLowerCase()
+            )) return false;
+        return true;
+      });
+
+      renderProducts(listings);
+    }
+
+    function renderProducts(products) {
+      if (!products.length) {
+        productGrid.innerHTML = `
+          <div class="empty-state">
+            <strong>No listings available yet.</strong><br>
+            Products will appear here when approved listings are added
+            to this category.
+          </div>`;
+        return;
+      }
+
+      productGrid.innerHTML = products.map(product => {
+        const title = product.name || product.title || product.product_name ||
+          "Digital product";
+        const description = product.description ||
+          "View details for this digital product.";
+        const price = product.price ?? product.amount ?? product.selling_price;
+
+        const priceText = price === undefined || price === null
+          ? "Price available soon"
+          : "₦" + Number(price).toLocaleString("en-NG");
+
+        return `
+          <article class="product-card">
+            <h3>${escapeHTML(title)}</h3>
+            <p>${escapeHTML(description)}</p>
+            <div class="product-price">${escapeHTML(priceText)}</div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function showHome() {
+      selectedCategory = null;
+      document.getElementById("productsView").classList.remove("active");
+      document.getElementById("homeView").classList.add("active");
+      searchInput.value = "";
+      history.replaceState(null, "", window.location.pathname);
+      renderCategories(categories);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    searchInput.addEventListener("input", () => {
+      const term = searchInput.value.trim().toLowerCase();
+
+      if (selectedCategory) {
+        const heading = categoryLabel(selectedCategory).toLowerCase();
+
+        if (term && !heading.includes(term)) {
+          productGrid.innerHTML =
+            '<div class="empty-state">Search is currently limited to the selected category.</div>';
+        } else if (!term) {
+          openCategory(selectedCategory);
+        }
+        return;
+      }
+
+      renderCategories(categories.filter(category => {
+        const searchable = [
+          categoryLabel(category),
+          category.description,
+          category.slug
+        ].join(" ").toLowerCase();
+
+        return searchable.includes(term);
+      }));
+    });
+
+    loadCategories();
+  </script>
+</body>
+</html>
